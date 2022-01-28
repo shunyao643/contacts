@@ -3,17 +3,16 @@ import java.util.Scanner;
 
 public class Contacts0 {
 
+    public static final int MAX_PERSON_COUNT = 100;
+    public static final String WORD_SEPARATOR = "|| ";
+
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
-        System.out.println("|| ===================================================");
-        System.out.println("|| ===================================================");
-        System.out.println("|| Contacts - Version 0.0");
-        System.out.println("|| Welcome to Contacts!");
-        System.out.println("|| ===================================================");
-        String[][] list = new String[100][3];
+        printWelcomeMessage();
+        String[][] list = new String[MAX_PERSON_COUNT][3];
         int count = 0;
         while (true) {
-            System.out.print("|| " + "Enter command: ");
+            System.out.print(WORD_SEPARATOR + "Enter command: ");
             String inputLine = SCANNER.nextLine();
             while (inputLine.trim().isEmpty() || inputLine.trim().charAt(0) == '#') {
                 inputLine = SCANNER.nextLine();
@@ -62,12 +61,12 @@ public class Contacts0 {
                             && !person1[2].isEmpty() && person1[2].contains("@") ? person1 : null;
                 }
                 if (decodeResult == null) {
-                    feedback = String.format("Invalid command format: %1$s " + (System.lineSeparator() + "|| ") 
-                            + "%2$s", "add", String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + "|| ")
+                    feedback = String.format("Invalid command format: %1$s " + (System.lineSeparator() + WORD_SEPARATOR)
+                            + "%2$s", "add", String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + WORD_SEPARATOR)
                             + String.format("\tParameters: %1$s", "NAME "
                             + "p/" + "PHONE_NUMBER "
-                            + "e/" + "EMAIL") + (System.lineSeparator() + "|| ")
-                            + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + "|| "));
+                            + "e/" + "EMAIL") + (System.lineSeparator() + WORD_SEPARATOR)
+                            + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + WORD_SEPARATOR));
                     break;
                 }
                 list[count] = decodeResult;
@@ -83,67 +82,75 @@ public class Contacts0 {
                     final int displayIndex = i + 1;
                     messageAccumulator.append('\t').append(String.format("%1$d. ", displayIndex))
                             .append(String.format("%1$s  Phone Number: %2$s  Email: %3$s", person[0], person[1], person[2]))
-                            .append(System.lineSeparator()).append("|| ");
+                            .append(System.lineSeparator()).append(WORD_SEPARATOR);
                 }
                 String listAsString = messageAccumulator.toString();
                 for (String m1 : new String[]{listAsString}) {
-                    System.out.println("|| " + m1);
+                    System.out.println(WORD_SEPARATOR + m1);
                 }
                 feedback = String.format("%1$d persons found!", count);
                 break;
             case "clear":
-                list = new String[100][3];
+                list = new String[MAX_PERSON_COUNT][3];
                 count = 0;
                 feedback = "Contacts have been cleared!";
                 break;
             case "help":
-                feedback = (String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + "|| ")
+                feedback = (String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + WORD_SEPARATOR)
                         + String.format("\tParameters: %1$s", "NAME "
                         + "p/" + "PHONE_NUMBER "
-                        + "e/" + "EMAIL") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "list", "Displays all persons as a list with index numbers.") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "list") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "clear", "Clears all contacts.") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "clear") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "exit", "Exits the program.")+ (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "exit")) + (System.lineSeparator() + "|| ") + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "help", "Shows program usage instructions.")+ (System.lineSeparator() + "|| ")
+                        + "e/" + "EMAIL") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "list", "Displays all persons as a list with index numbers.") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "list") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "clear", "Clears all contacts.") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "clear") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "exit", "Exits the program.")+ (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "exit")) + (System.lineSeparator() + WORD_SEPARATOR) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "help", "Shows program usage instructions.")+ (System.lineSeparator() + WORD_SEPARATOR)
                         + String.format("\tExample: %1$s", "help"));
                 break;
             case "exit":
                 for (String m1 : new String[]{"Exiting Contacts... Good bye!",
                         "===================================================",
                         "==================================================="}) {
-                    System.out.println("|| " + m1);
+                    System.out.println(WORD_SEPARATOR + m1);
                 }
                 System.exit(0);
                 // Fallthrough
             default:
-                feedback = String.format("Invalid command format: %1$s " + (System.lineSeparator() + "|| ") 
-                        + "%2$s", commandType, (String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + "|| ")
+                feedback = String.format("Invalid command format: %1$s " + (System.lineSeparator() + WORD_SEPARATOR)
+                        + "%2$s", commandType, (String.format("%1$s: %2$s", "add", "Adds a person to contacts.") + (System.lineSeparator() + WORD_SEPARATOR)
                         + String.format("\tParameters: %1$s", "NAME "
                         + "p/" + "PHONE_NUMBER "
-                        + "e/" + "EMAIL") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
+                        + "e/" + "EMAIL") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "add" + " John Doe p/98765432 e/johnd@gmail.com") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
                         + (String.format("%1$s: %2$s", "find", "Finds all persons whose names contain any of the specified "
-                        + "keywords (case-sensitive) and displays them as a list with index numbers.") + (System.lineSeparator() + "|| ")
-                        + String.format("\tParameters: %1$s", "KEYWORD [MORE_KEYWORDS]") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "find" + " alice bob charlie") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "list", "Displays all persons as a list with index numbers.") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "list") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
-                        + (String.format("%1$s: %2$s", "clear", "Clears all contacts.") + (System.lineSeparator() + "|| ")
-                        + String.format("\tExample: %1$s", "clear") + (System.lineSeparator() + "|| ")) + (System.lineSeparator() + "|| ")
+                        + "keywords (case-sensitive) and displays them as a list with index numbers.") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tParameters: %1$s", "KEYWORD [MORE_KEYWORDS]") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "find" + " alice bob charlie") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "list", "Displays all persons as a list with index numbers.") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "list") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
+                        + (String.format("%1$s: %2$s", "clear", "Clears all contacts.") + (System.lineSeparator() + WORD_SEPARATOR)
+                        + String.format("\tExample: %1$s", "clear") + (System.lineSeparator() + WORD_SEPARATOR)) + (System.lineSeparator() + WORD_SEPARATOR)
                         + (String.format("%1$s: %2$s", "exit", "Exits the program.")
-                        + String.format("\tExample: %1$s", "exit")) + (System.lineSeparator() + "|| ")
+                        + String.format("\tExample: %1$s", "exit")) + (System.lineSeparator() + WORD_SEPARATOR)
                         + (String.format("%1$s: %2$s", "help", "Shows program usage instructions.")
                         + String.format("\tExample: %1$s", "help")));
                 break;
             }
             for (String m : new String[]{feedback, "==================================================="}) {
-                System.out.println("|| " + m);
+                System.out.println(WORD_SEPARATOR + m);
             }
         }
+    }
+
+    private static void printWelcomeMessage() {
+        System.out.println("|| ===================================================");
+        System.out.println("|| ===================================================");
+        System.out.println("|| Contacts - Version 0.0");
+        System.out.println("|| Welcome to Contacts!");
+        System.out.println("|| ===================================================");
     }
 
 }
